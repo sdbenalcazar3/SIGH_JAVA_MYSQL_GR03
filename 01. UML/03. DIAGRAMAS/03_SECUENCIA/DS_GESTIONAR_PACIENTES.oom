@@ -1,0 +1,1908 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<?PowerDesigner AppLocale="UTF16" ID="{395D1A0E-8990-4275-A7EB-AFBC78741606}" Label="SIGH - ERS corregido y ECUD 2.1" LastModificationDate="1793733430" Name="DS_GESTIONAR_PACIENTES" Objects="179" Symbols="80" Target="Analysis" TargetLink="Reference" Type="{18112060-1A4B-11D1-83D9-444553540000}" signature="CLD_OBJECT_MODEL" version="16.5.0.3982"?>
+<Model xmlns:o="object" xmlns:a="attribute" xmlns:c="collection">
+  <o:RootObject Id="o1">
+    <a:CreationDate>1793733430</a:CreationDate>
+    <a:ModificationDate>1793733430</a:ModificationDate>
+    <c:Children>
+      <o:Model Id="o2"><a:ObjectID>395D1A0E-8990-4275-A7EB-AFBC78741606</a:ObjectID><a:Name>DS_GESTIONAR_PACIENTES</a:Name><a:Code>DS_GESTIONAR_PACIENTES</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006 — Gestionar pacientes
+Fuente: ECUD_SIGH_GR3 v2.1; ERS_SIGH_GR3_CORREGIDO.
+Meta y descripción: Mantener una identidad de paciente única y datos administrativos trazables.
+Actores: ACT-002 Personal de admisión
+Disparador: Admisión necesita localizar, registrar, actualizar o conciliar un paciente.
+Precondiciones: Personal de admisión autenticado; la conciliación requiere permiso adicional específico. En emergencia se admite registro provisional.
+Postcondición de éxito: Paciente identificado o actualizado con historia única; conciliación conserva los vínculos y referencias anteriores.
+Garantía ante fallo: No se crea un documento duplicado, no se fusionan identidades ambiguas y no se pierde un episodio.
+Requisitos funcionales: RF-006, RF-022
+Reglas de negocio: RN-001, RN-002, RN-003
+Datos e integridad: RD-001
+Calidad observable: RNF-001, RNF-002, RNF-004, RNF-006, RNF-009, RNF-010, RNF-011, RNF-013, RNF-014, RNF-015, RNF-016; aplican las condiciones transversales del apartado 3 y del anexo B.
+Relaciones del modelo: Include: REL-I04 (CU-006_FP → INC-03); REL-I05 (CU-006_FO-01 → INC-03). Extend: ninguno. Desarrollo de operaciones y condiciones en anexo D. Casos relacionados por información o continuidad: CU-009, CU-010.
+Las operaciones FO son independientes salvo las extensiones explícitas CU-016/FO-01 y CU-017/FO-01. EXG-01 a EXG-06 se aplican en cada solicitud y confirmación.</a:Comment><a:PackageOptionsText>[FolderOptions]
+
+[FolderOptions\Class Diagram Objects]
+GenerationCheckModel=Yes
+GenerationPath=
+GenerationOptions=
+GenerationTasks=
+GenerationTargets=
+GenerationSelections=</a:PackageOptionsText>
+<a:ModelOptionsText>[ModelOptions]
+
+[ModelOptions\Cld]
+CaseSensitive=Yes
+DisplayName=Yes
+EnableTrans=Yes
+UseTerm=No
+EnableRequirements=No
+EnableFullShortcut=Yes
+ShowClss=No
+DeftAttr=int
+DeftMthd=int
+DeftParm=int
+DeftCont=java.util.Collection
+DomnDttp=Yes
+DomnChck=No
+DomnRule=No
+SupportDelay=No
+PreviewEditable=Yes
+AutoRealize=No
+DttpFullName=Yes
+DeftClssAttrVisi=private
+VBNetPreprocessingSymbols=
+CSharpPreprocessingSymbols=
+
+[ModelOptions\Cld\NamingOptionsTemplates]
+
+[ModelOptions\Cld\ClssNamingOptions]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPCKG]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPCKG\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,firstLowerWord)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPCKG\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDDOMN]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDDOMN\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDDOMN\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDCLASS]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDCLASS\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,FirstUpperChar)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDCLASS\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDINTF]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDINTF\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,FirstUpperChar)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDINTF\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDACTR]
+
+[ModelOptions\Cld\ClssNamingOptions\UCDACTR\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDACTR\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDUCAS]
+
+[ModelOptions\Cld\ClssNamingOptions\UCDUCAS\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDUCAS\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\SQDOBJT]
+
+[ModelOptions\Cld\ClssNamingOptions\SQDOBJT\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\SQDOBJT\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\SQDMSSG]
+
+[ModelOptions\Cld\ClssNamingOptions\SQDMSSG\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\SQDMSSG\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CPDCOMP]
+
+[ModelOptions\Cld\ClssNamingOptions\CPDCOMP\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,FirstUpperChar)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CPDCOMP\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDATTR]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDATTR\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,firstLowerWord)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDATTR\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDMETHOD]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDMETHOD\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,firstLowerWord)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDMETHOD\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPARM]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPARM\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,firstLowerWord)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDPARM\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPORT]
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPORT\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPORT\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPART]
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPART\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMPART\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDASSC]
+
+[ModelOptions\Cld\ClssNamingOptions\CLDASSC\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,,,firstLowerWord)
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\CLDASSC\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDASSC]
+
+[ModelOptions\Cld\ClssNamingOptions\UCDASSC\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\UCDASSC\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\GNRLLINK]
+
+[ModelOptions\Cld\ClssNamingOptions\GNRLLINK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\GNRLLINK\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\RQLINK]
+
+[ModelOptions\Cld\ClssNamingOptions\RQLINK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\RQLINK\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\RLZSLINK]
+
+[ModelOptions\Cld\ClssNamingOptions\RLZSLINK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\RLZSLINK\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DEPDLINK]
+
+[ModelOptions\Cld\ClssNamingOptions\DEPDLINK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DEPDLINK\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMACTV]
+
+[ModelOptions\Cld\ClssNamingOptions\OOMACTV\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMACTV\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\ACDOBST]
+
+[ModelOptions\Cld\ClssNamingOptions\ACDOBST\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\ACDOBST\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\STAT]
+
+[ModelOptions\Cld\ClssNamingOptions\STAT\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\STAT\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDNODE]
+
+[ModelOptions\Cld\ClssNamingOptions\DPDNODE\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDNODE\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDCMPI]
+
+[ModelOptions\Cld\ClssNamingOptions\DPDCMPI\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDCMPI\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDASSC]
+
+[ModelOptions\Cld\ClssNamingOptions\DPDASSC\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DPDASSC\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMVAR]
+
+[ModelOptions\Cld\ClssNamingOptions\OOMVAR\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\OOMVAR\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FILO]
+
+[ModelOptions\Cld\ClssNamingOptions\FILO\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar="\/:*?&lt;&gt;|"
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FILO\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_. "
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FRMEOBJ]
+
+[ModelOptions\Cld\ClssNamingOptions\FRMEOBJ\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FRMEOBJ\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FRMELNK]
+
+[ModelOptions\Cld\ClssNamingOptions\FRMELNK\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\FRMELNK\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DefaultClass]
+
+[ModelOptions\Cld\ClssNamingOptions\DefaultClass\Name]
+Template=
+MaxLen=254
+Case=M
+ValidChar=
+InvldChar=
+AllValid=Yes
+NoAccent=No
+DefaultChar=_
+Script=.convert_name(%Name%,"_")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Cld\ClssNamingOptions\DefaultClass\Code]
+Template=
+MaxLen=254
+Case=M
+ValidChar='a'-'z','A'-'Z','0'-'9',"_"
+InvldChar=" '(.)+=*/"
+AllValid=Yes
+NoAccent=Yes
+DefaultChar=_
+Script=.convert_code(%Code%," ")
+ConvTable=
+ConvTablePath=%_HOME%\Resource Files\Conversion Tables
+
+[ModelOptions\Generate]
+
+[ModelOptions\Generate\Xsm]
+GenRootElement=Yes
+GenComplexType=No
+GenAttribute=Yes
+CheckModel=Yes
+SaveLinks=Yes
+ORMapping=No
+NameToCode=No
+
+[ModelOptions\Generate\Cdm]
+CheckModel=Yes
+SaveLinks=Yes
+NameToCode=No
+Notation=2
+
+[ModelOptions\Generate\Pdm]
+CheckModel=Yes
+SaveLinks=Yes
+ORMapping=No
+NameToCode=No
+BuildTrgr=No
+TablePrefix=
+IndxPKName=%TABLE%_PK
+IndxAKName=%TABLE%_AK
+IndxFKName=%REFR%_FK
+IndxThreshold=
+ColnFKName=%.3:PARENT%_%COLUMN%
+ColnFKNameUse=No</a:ModelOptionsText>
+<c:ObjectLanguage><o:Shortcut Id="o3"><a:ObjectID>34CE5B27-B686-405F-9C3E-51C5F0D1960F</a:ObjectID><a:Name>Analysis</a:Name><a:Code>Analysis</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:TargetID>87317290-AF03-469F-BC1E-99593F18A4AB</a:TargetID><a:TargetClassID>1811206C-1A4B-11D1-83D9-444553540000</a:TargetClassID></o:Shortcut></c:ObjectLanguage><c:TargetModels><o:TargetModel Id="o4"><a:ObjectID>7A48E879-AC00-4C02-AC28-22E315997920</a:ObjectID><a:Name>Analysis</a:Name><a:Code>Analysis</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:TargetModelURL>file:///%_OBJLANG%/analysis.xol</a:TargetModelURL><a:TargetModelID>87317290-AF03-469F-BC1E-99593F18A4AB</a:TargetModelID><a:TargetModelClassID>1811206C-1A4B-11D1-83D9-444553540000</a:TargetModelClassID><c:SessionShortcuts><o:Shortcut Ref="o3"/></c:SessionShortcuts></o:TargetModel></c:TargetModels><c:SequenceDiagrams><o:SequenceDiagram Id="o5"><a:ObjectID>5D165A30-6D24-4EDB-8414-E55C9FD6EBD2</a:ObjectID><a:Name>DS_GESTIONAR_PACIENTES</a:Name><a:Code>DS_GESTIONAR_PACIENTES</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:DisplayPreferences>[DisplayPreferences]
+
+[DisplayPreferences\SQD]
+
+[DisplayPreferences\General]
+Adjust to text=Yes
+Snap Grid=No
+Constrain Labels=Yes
+Display Grid=No
+Show Page Delimiter=No
+Show Links intersections=Yes
+Activate automatic link routing=No
+Grid size=0
+Graphic unit=2
+Window color=255, 255, 255
+Background image=
+Background mode=8
+Watermark image=
+Watermark mode=8
+Show watermark on screen=No
+Gradient mode=0
+Gradient end color=255, 255, 255
+Show Swimlane=No
+SwimlaneVert=Yes
+TreeVert=No
+CompDark=0
+
+[DisplayPreferences\Object]
+Show Icon=No
+Mode=2
+Trunc Length=40
+Word Length=40
+Word Text=!"#$%&amp;')*+,-./:;=&gt;?@\]^_`|}~
+Shortcut IntIcon=Yes
+Shortcut IntLoct=Yes
+Shortcut IntFullPath=No
+Shortcut IntLastPackage=Yes
+Shortcut ExtIcon=Yes
+Shortcut ExtLoct=No
+Shortcut ExtFullPath=No
+Shortcut ExtLastPackage=Yes
+Shortcut ExtIncludeModl=Yes
+EObjShowStrn=Yes
+ExtendedObject.Comment=No
+ExtendedObject.IconPicture=No
+ExtendedObject.TextStyle=No
+ExtendedObject_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Object Name" Attribute="DisplayName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;Separator Name="Separator" /&gt;[CRLF] &lt;StandardAttribute Name="Comment" Attribute="Comment" Prefix="" Suffix="" Alignment="LEFT" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Icon" Attribute="IconPicture" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;StandardAttribute Name="Force top align" Attribute="TextStyle" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF]&lt;/Form&gt;
+ELnkShowStrn=Yes
+ELnkShowName=Yes
+ExtendedLink_SymbolLayout=&lt;Form&gt;[CRLF] &lt;Form Name="Center" &gt;[CRLF]  &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Caption="" Mandatory="No" /&gt;[CRLF]  &lt;StandardAttribute Name="Name" Attribute="DisplayName" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name="Source" &gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name="Destination" &gt;[CRLF] &lt;/Form&gt;[CRLF]&lt;/Form&gt;
+FileObject.Stereotype=No
+FileObject.DisplayName=Yes
+FileObject.LocationOrName=No
+FileObject.IconPicture=No
+FileObject.TextStyle=No
+FileObject.IconMode=Yes
+FileObject_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;ExclusiveChoice Name="Exclusive Choice" Mandatory="Yes" Display="HorizontalRadios" &gt;[CRLF]  &lt;StandardAttribute Name="Name" Attribute="DisplayName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF]  &lt;StandardAttribute Name="Location" Attribute="LocationOrName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;/ExclusiveChoice&gt;[CRLF] &lt;StandardAttribute Name="Icon" Attribute="IconPicture" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;StandardAttribute Name="Force top align" Attribute="TextStyle" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF]&lt;/Form&gt;
+Package.Stereotype=Yes
+Package.Comment=No
+Package.IconPicture=No
+Package.TextStyle=No
+Package_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Name" Attribute="DisplayName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;Separator Name="Separator" /&gt;[CRLF] &lt;StandardAttribute Name="Comment" Attribute="Comment" Prefix="" Suffix="" Alignment="LEFT" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Icon" Attribute="IconPicture" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;StandardAttribute Name="Force top align" Attribute="TextStyle" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF]&lt;/Form&gt;
+Display Model Version=Yes
+InteractionSymbol.IconPicture=No
+InteractionSymbol.TextStyle=No
+InteractionSymbol_SymbolLayout=
+UMLObject.Stereotype=Yes
+UMLObject.HeaderAlwaysVisible=Yes
+UMLObject.IconPicture=No
+UMLObject.TextStyle=No
+UMLObject_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Name" Attribute="DisplayName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;Separator Name="Separator" /&gt;[CRLF] &lt;StandardAttribute Name="Icon" Attribute="IconPicture" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;StandardAttribute Name="Force top align" Attribute="TextStyle" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF]&lt;/Form&gt;
+ActivationSymbol.IconPicture=No
+ActivationSymbol.TextStyle=No
+ActivationSymbol_SymbolLayout=
+Actor.Stereotype=Yes
+Actor.IconPicture=No
+Actor.TextStyle=No
+Actor_SymbolLayout=&lt;Form&gt;[CRLF] &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Alignment="CNTR" Caption="" Mandatory="No" /&gt;[CRLF] &lt;StandardAttribute Name="Name" Attribute="DisplayName" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;Separator Name="Separator" /&gt;[CRLF] &lt;StandardAttribute Name="Icon" Attribute="IconPicture" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF] &lt;StandardAttribute Name="Force top align" Attribute="TextStyle" Prefix="" Suffix="" Alignment="CNTR" Caption="" Mandatory="Yes" /&gt;[CRLF]&lt;/Form&gt;
+InteractionReference.IconPicture=No
+InteractionReference.TextStyle=No
+InteractionReference_SymbolLayout=
+InteractionFragment.IconPicture=No
+InteractionFragment.TextStyle=No
+InteractionFragment_SymbolLayout=
+Message.BeginTime=Yes
+Message.Stereotype=Yes
+Message.NameOrCode=No
+Message.NameOrOper=No
+Message.OperAndArgs=No
+Message.CondAndOper=No
+Message.CondOperAndSign=Yes
+Message.EndTime=Yes
+Message.ActivationAttachment=No
+Message_SymbolLayout=&lt;Form&gt;[CRLF] &lt;Form Name="Source" &gt;[CRLF]  &lt;StandardAttribute Name="Begin Time" Attribute="BeginTime" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name="Center" &gt;[CRLF]  &lt;StandardAttribute Name="Stereotype" Attribute="Stereotype" Prefix="&amp;lt;&amp;lt;" Suffix="&amp;gt;&amp;gt;" Caption="" Mandatory="No" /&gt;[CRLF]  &lt;StandardAttribute Name="Name" Attribute="NameOrCode" Prefix="" Suffix="" Caption="Name" Mandatory="No" /&gt;[CRLF]  &lt;ExclusiveChoice Name="Exclusive Choice" Mandatory="No" Display="VerticalRadios" &gt;[CRLF]   &lt;StandardAttribute Name="Operation name" Attribute="NameOrOper" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF]   &lt;StandardAttribute Name="Operation name with signature" Attribute="OperAndArgs" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF]   &lt;StandardAttribute Name="Sequence expression and operation name" Attribute="CondAndOper" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF]   &lt;StandardAttribute Name="Sequence expression and operation name with signature" Attribute="CondOperAndSign" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF]  &lt;/ExclusiveChoice&gt;[CRLF] &lt;/Form&gt;[CRLF] &lt;Form Name="Destination" &gt;[CRLF]  &lt;StandardAttribute Name="End Time" Attribute="EndTime" Prefix="" Suffix="" Caption="" Mandatory="No" /&gt;[CRLF] &lt;/Form&gt;[CRLF]&lt;/Form&gt;
+IRefShowStrn=Yes
+FragShowLife=Yes
+ShowIntrSym=Yes
+
+[DisplayPreferences\Symbol]
+
+[DisplayPreferences\Symbol\FRMEOBJ]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=6000
+Height=2000
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=64
+Brush gradient color=192 192 192
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 255 128 128
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\FRMELNK]
+CENTERFont=Arial,8,N
+CENTERFont color=0, 0, 0
+Line style=1
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\FILO]
+OBJSTRNFont=Arial,8,N
+OBJSTRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LCNMFont=Arial,8,N
+LCNMFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 0 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\CLDPCKG]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+LABLFont=Arial,8,N
+LABLFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=4000
+Brush color=255 255 192
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 178 178 178
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\SINT]
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=22000
+Height=28800
+Brush color=255 255 255
+Fill Color=No
+Brush style=4
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 208 208 232
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\SQDOBJT]
+OBJSTRNFont=Arial,8,N
+OBJSTRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,U
+DISPNAMEFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=236 249 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\ACTVSYM]
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=900
+Height=2400
+Brush color=208 208 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 0 128
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\UCDACTR]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=Yes
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 192
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=255 255 255
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 150 0 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\IREF]
+STRNFont=Arial,8,N
+STRNFont color=0, 0, 0
+DISPNAMEFont=Arial,8,N
+DISPNAMEFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=6
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=208 208 232
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 208 208 232
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\IFRG]
+KWRDFont=Arial,8,N
+KWRDFont color=0, 0, 0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Width=4800
+Height=3600
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=4
+Brush bitmap mode=12
+Brush gradient mode=65
+Brush gradient color=208 208 232
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 150 208 208 232
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\SQDMSSG]
+SOURCEFont=Arial,8,N
+SOURCEFont color=0, 0, 0
+CENTERFont=Arial,8,N
+CENTERFont color=0, 0, 0
+DESTINATIONFont=Arial,8,N
+DESTINATIONFont color=0, 0, 0
+Line style=0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 128 128 192
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\USRDEPD]
+OBJXSTRFont=Arial,8,N
+OBJXSTRFont color=0, 0, 0
+Line style=1
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=2 0 128 128 255
+Shadow color=192 192 192
+Shadow=0
+
+[DisplayPreferences\Symbol\Free Symbol]
+Free TextFont=Arial,8,N
+Free TextFont color=0, 0, 0
+Line style=0
+AutoAdjustToText=Yes
+Keep aspect=No
+Keep center=No
+Keep size=No
+Brush color=255 255 255
+Fill Color=Yes
+Brush style=1
+Brush bitmap mode=12
+Brush gradient mode=0
+Brush gradient color=118 118 118
+Brush background image=
+Custom shape=
+Custom text mode=0
+Pen=1 0 0 0 255
+Shadow color=192 192 192
+Shadow=0</a:DisplayPreferences>
+<a:PaperSize>(8268, 11693)</a:PaperSize>
+<a:PageMargins>((315,354), (433,354))</a:PageMargins>
+<a:PageOrientation>1</a:PageOrientation>
+<a:PaperSource>15</a:PaperSource>
+<a:Scale>50</a:Scale><c:Symbols><o:InteractionFragmentSymbol Id="o179"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-531700), (82500,-520500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o178"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o172"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-520500), (82500,-28100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o171"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o168"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-516800), (82500,-459900))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o167"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o158"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-482500), (82500,-463600))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o157"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o146"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-446800), (82500,-404700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o145"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o140"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-426200), (82500,-408400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o139"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o119"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-349500), (82500,-297000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o118"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o109"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-318500), (82500,-300700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o108"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o76"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-207300), (82500,-169700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o75"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o59"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-154400), (82500,-77400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o58"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines><a:RegionConditionPositionList>((2500,300),(2500,300),(2500,300))</a:RegionConditionPositionList></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o49"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-123400), (82500,-103400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o48"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o43"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-98900), (82500,-81100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o42"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:InteractionFragmentSymbol Id="o24"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-3000,-28100), (82500,-21100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:LineColor>16711680</a:LineColor><a:FillColor>16777215</a:FillColor><a:BrushStyle>4</a:BrushStyle><a:FontList>KWRD 0 Arial,10,N</a:FontList><c:Object><o:InteractionFragment Ref="o23"/></c:Object><c:AttachedLifelines><o:ActorSequenceSymbol Ref="o7"/><o:UMLObjectSequenceSymbol Ref="o10"/><o:UMLObjectSequenceSymbol Ref="o13"/><o:UMLObjectSequenceSymbol Ref="o16"/></c:AttachedLifelines></o:InteractionFragmentSymbol><o:ActorSequenceSymbol Id="o7"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:IconMode>-1</a:IconMode>
+<a:LineColor>16744448</a:LineColor>
+<a:LineWidth>1</a:LineWidth>
+<a:FillColor>12648447</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>STRN 0 Arial,10,N
+DISPNAME 0 Arial,10,N</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<a:KeepCenter>1</a:KeepCenter>
+<a:Rect>((-1500,-9800), (8500,-6000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><c:Object><o:Actor Ref="o6"/></c:Object><c:SlaveSubSymbols><o:LifelineSymbol Id="o8"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((3100,-533000), (3900,-9800))</a:Rect><a:ListOfPoints>((3500,-9800),(3500,-533000))</a:ListOfPoints><a:ArrowStyle>0</a:ArrowStyle><a:DashStyle>3</a:DashStyle><a:LineColor>16744448</a:LineColor></o:LifelineSymbol></c:SlaveSubSymbols></o:ActorSequenceSymbol><o:UMLObjectSequenceSymbol Id="o10"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:IconMode>-1</a:IconMode>
+<a:LineColor>16744448</a:LineColor>
+<a:FillColor>12615935</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>OBJSTRN 0 Arial,10,N
+DISPNAME 0 Arial,10,U</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<a:Rect>((18500,-9800), (28500,-6000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><c:Object><o:UMLObject Ref="o9"/></c:Object><c:SlaveSubSymbols><o:LifelineSymbol Id="o11"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((23100,-533000), (23900,-9800))</a:Rect><a:ListOfPoints>((23500,-9800),(23500,-533000))</a:ListOfPoints><a:ArrowStyle>0</a:ArrowStyle><a:DashStyle>3</a:DashStyle><a:LineColor>16744448</a:LineColor></o:LifelineSymbol></c:SlaveSubSymbols></o:UMLObjectSequenceSymbol><o:UMLObjectSequenceSymbol Id="o13"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:IconMode>-1</a:IconMode>
+<a:LineColor>16744448</a:LineColor>
+<a:FillColor>12615935</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>OBJSTRN 0 Arial,10,N
+DISPNAME 0 Arial,10,U</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<a:Rect>((42500,-9800), (52500,-6000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><c:Object><o:UMLObject Ref="o12"/></c:Object><c:SlaveSubSymbols><o:LifelineSymbol Id="o14"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((47100,-533000), (47900,-9800))</a:Rect><a:ListOfPoints>((47500,-9800),(47500,-533000))</a:ListOfPoints><a:ArrowStyle>0</a:ArrowStyle><a:DashStyle>3</a:DashStyle><a:LineColor>16744448</a:LineColor></o:LifelineSymbol></c:SlaveSubSymbols></o:UMLObjectSequenceSymbol><o:UMLObjectSequenceSymbol Id="o16"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:IconMode>-1</a:IconMode>
+<a:LineColor>16744448</a:LineColor>
+<a:FillColor>12615935</a:FillColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>OBJSTRN 0 Arial,10,N
+DISPNAME 0 Arial,10,U</a:FontList>
+<a:BrushStyle>6</a:BrushStyle>
+<a:GradientFillMode>65</a:GradientFillMode>
+<a:GradientEndColor>16777215</a:GradientEndColor>
+<a:Rect>((66500,-9800), (76500,-6000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><c:Object><o:UMLObject Ref="o15"/></c:Object><c:SlaveSubSymbols><o:LifelineSymbol Id="o17"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((71100,-533000), (71900,-9800))</a:Rect><a:ListOfPoints>((71500,-9800),(71500,-533000))</a:ListOfPoints><a:ArrowStyle>0</a:ArrowStyle><a:DashStyle>3</a:DashStyle><a:LineColor>16744448</a:LineColor></o:LifelineSymbol></c:SlaveSubSymbols></o:UMLObjectSequenceSymbol><o:TextSymbol Id="o18"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((0,-4900), (45000,0))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:Text>CU-006  Gestionar pacientes
+Operaciones independientes agrupadas en alt. FP/FO y FA conservan su origen en
+el ECUD. Los actores actúan únicamente en su permiso y ámbito.</a:Text><a:TextStyle>0</a:TextStyle><a:FontName>Arial,12,N</a:FontName><a:DashStyle>7</a:DashStyle><a:FillColor>16777215</a:FillColor></o:TextSymbol><o:MessageSymbol Id="o20"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-18900), (47600,-18700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-18800),(47500,-18800))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o19"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o22"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-25200), (47600,-25000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-25100),(23500,-25100))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o21"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:TextSymbol Id="o25"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-1500,-33500), (77000,-30500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:Text>CU-006_FP Buscar y registrar paciente | ACT: 002</a:Text><a:TextStyle>0</a:TextStyle><a:FontName>Arial,10,N</a:FontName><a:DashStyle>7</a:DashStyle><a:FillColor>16777215</a:FillColor></o:TextSymbol><o:MessageSymbol Id="o27"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-40400), (23600,-40200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-40300),(23500,-40300))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o26"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o29"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-46700), (47600,-46500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-46600),(47500,-46600))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o28"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o31"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-54100), (47600,-53900))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-54000),(23500,-54000))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o30"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o33"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-60400), (23600,-60200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-60300),(3500,-60300))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o32"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o35"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-68900), (23600,-68700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-68800),(23500,-68800))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o34"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o37"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-75200), (47600,-75000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-75100),(47500,-75100))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o36"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o39"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-89700), (47600,-89500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-89600),(23500,-89600))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o38"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o41"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-96000), (23600,-95800))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-95900),(3500,-95900))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o40"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o45"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-114200), (47600,-114000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-114100),(23500,-114100))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,4550)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o44"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o47"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-120500), (23600,-120300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-120400),(3500,-120400))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o46"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o51"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-131300), (71600,-131100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-131200),(71500,-131200))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o50"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o53"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-136500), (71600,-136300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((71500,-136400),(47500,-136400))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,1800)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o52"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o55"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-145000), (47600,-144800))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-144900),(23500,-144900))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o54"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o57"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-151300), (23600,-151100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-151200),(3500,-151200))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o56"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o64"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-161200), (23600,-161000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-161100),(23500,-161100))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o63"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o66"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-167500), (47600,-167300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-167400),(47500,-167400))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o65"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o68"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-180100), (47600,-179900))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-180000),(23500,-180000))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,4000)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o67"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o70"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-186400), (23600,-186200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-186300),(3500,-186300))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o69"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o72"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-197900), (47600,-197700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-197800),(23500,-197800))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o71"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o74"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-204200), (23600,-204000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-204100),(3500,-204100))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o73"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o80"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-211900), (23600,-211700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-211800),(23500,-211800))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o79"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o82"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-218200), (47600,-218000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-218100),(47500,-218100))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o81"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o84"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-224500), (71600,-224300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-224400),(71500,-224400))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o83"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o86"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-230800), (71600,-230600))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((71500,-230700),(47500,-230700))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o85"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o88"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-238200), (47600,-238000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-238100),(23500,-238100))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o87"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o90"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-244500), (23600,-244300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-244400),(3500,-244400))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o89"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:TextSymbol Id="o91"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-1500,-255300), (77000,-252300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:Text>CU-006_FO-01 Actualizar datos administrativos | ACT: 002</a:Text><a:TextStyle>0</a:TextStyle><a:FontName>Arial,10,N</a:FontName><a:DashStyle>7</a:DashStyle><a:FillColor>16777215</a:FillColor></o:TextSymbol><o:MessageSymbol Id="o93"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-262200), (23600,-262000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-262100),(23500,-262100))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o92"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o95"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-268500), (47600,-268300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-268400),(47500,-268400))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o94"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o97"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-275900), (47600,-275700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-275800),(23500,-275800))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o96"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o99"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-282200), (23600,-282000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-282100),(3500,-282100))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o98"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o101"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-288500), (23600,-288300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-288400),(23500,-288400))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o100"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o103"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-294800), (47600,-294600))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-294700),(47500,-294700))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o102"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o105"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-309300), (47600,-309100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-309200),(23500,-309200))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o104"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o107"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-315600), (23600,-315400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-315500),(3500,-315500))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o106"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o111"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-326400), (71600,-326200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-326300),(71500,-326300))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o110"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o113"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-332700), (71600,-332500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((71500,-332600),(47500,-332600))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o112"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o115"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-340100), (47600,-339900))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-340000),(23500,-340000))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o114"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o117"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-346400), (23600,-346200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-346300),(3500,-346300))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o116"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:TextSymbol Id="o122"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Rect>((-1500,-358600), (77000,-355600))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:Text>CU-006_FO-02 Conciliar identidad provisional | ACT: 002</a:Text><a:TextStyle>0</a:TextStyle><a:FontName>Arial,10,N</a:FontName><a:DashStyle>7</a:DashStyle><a:FillColor>16777215</a:FillColor></o:TextSymbol><o:MessageSymbol Id="o124"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-366600), (23600,-366400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-366500),(23500,-366500))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o123"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o126"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-372900), (47600,-372700))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-372800),(47500,-372800))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o125"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o128"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-380300), (47600,-380100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-380200),(23500,-380200))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2900)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o127"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o130"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-386600), (23600,-386400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-386500),(3500,-386500))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o129"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o132"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-396200), (23600,-396000))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-396100),(23500,-396100))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,4000)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o131"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o134"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-402500), (47600,-402300))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-402400),(47500,-402400))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o133"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o136"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-417000), (47600,-416800))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-416900),(23500,-416900))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o135"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o138"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-423300), (23600,-423100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-423200),(3500,-423200))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o137"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o142"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-437400), (47600,-437200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-437300),(23500,-437300))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,4000)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o141"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o144"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-443700), (23600,-443500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-443600),(3500,-443600))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o143"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o150"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-451400), (23600,-451200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((3500,-451300),(23500,-451300))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o149"/></c:Object><c:SourceSymbol><o:ActorSequenceSymbol Ref="o7"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o152"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-457700), (47600,-457500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-457600),(47500,-457600))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o151"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o154"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-473300), (47600,-473100))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-473200),(23500,-473200))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,4000)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o153"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o156"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-479600), (23600,-479400))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-479500),(3500,-479500))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o155"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o160"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>1</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-490400), (71600,-490200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-490300),(71500,-490300))</a:ListOfPoints><a:DashStyle>0</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o159"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o162"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((47400,-496700), (71600,-496500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((71500,-496600),(47500,-496600))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o161"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o16"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o164"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-507400), (47600,-507200))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-507300),(23500,-507300))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,4550)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o163"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o166"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((3400,-513700), (23600,-513500))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((23500,-513600),(3500,-513600))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,2350)</a:CenterTextOffset><a:CenterTextWidth>18800</a:CenterTextWidth><c:Object><o:Message Ref="o165"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:SourceSymbol><c:DestinationSymbol><o:ActorSequenceSymbol Ref="o7"/></c:DestinationSymbol></o:MessageSymbol><o:MessageSymbol Id="o177"><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:ArrowStyle>8</a:ArrowStyle>
+<a:LineColor>12615808</a:LineColor>
+<a:ShadowColor>12632256</a:ShadowColor>
+<a:FontList>CENTER 0 Arial,10,N
+SOURCE 0 Arial,10,N
+DESTINATION 0 Arial,10,N</a:FontList>
+<a:Rect>((23400,-528100), (47600,-527900))</a:Rect><a:AutoAdjustToText>0</a:AutoAdjustToText><a:ManuallyResized>1</a:ManuallyResized><a:ListOfPoints>((47500,-528000),(23500,-528000))</a:ListOfPoints><a:DashStyle>3</a:DashStyle><a:CenterTextOffset>(0,3450)</a:CenterTextOffset><a:CenterTextWidth>22800</a:CenterTextWidth><c:Object><o:Message Ref="o176"/></c:Object><c:SourceSymbol><o:UMLObjectSequenceSymbol Ref="o13"/></c:SourceSymbol><c:DestinationSymbol><o:UMLObjectSequenceSymbol Ref="o10"/></c:DestinationSymbol></o:MessageSymbol></c:Symbols></o:SequenceDiagram></c:SequenceDiagrams><c:DefaultDiagram><o:SequenceDiagram Ref="o5"/></c:DefaultDiagram><c:Actors><o:Actor Id="o6"><a:ObjectID>E1E23657-E5A6-4340-A25D-8A087A89319E</a:ObjectID><a:Name>Personal de admisión</a:Name><a:Code>Personal_de_admision</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Pacientes, conciliación con permiso adicional, catálogos de agenda, citas y llegadas; reportes administrativos propios
+Límites: Sin editar notas, decidir triaje o alta médica ni ejecutar altas hospitalarias de ACT-009.</a:Comment></o:Actor></c:Actors><c:Objects><o:UMLObject Id="o9"><a:ObjectID>8AC089DE-C321-4C43-9B76-F7F3616CF40D</a:ObjectID><a:Name>VISTA SIGH</a:Name><a:Code>VISTA_SIGH</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Participante conceptual de análisis. Acceso a datos solo desde la lógica autorizada del servidor.</a:Comment></o:UMLObject><o:UMLObject Id="o12"><a:ObjectID>57370BB6-689E-444C-9877-0CCE78C10552</a:ObjectID><a:Name>LÓGICA SIGH</a:Name><a:Code>LOGICA_SIGH</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Participante conceptual de análisis. Acceso a datos solo desde la lógica autorizada del servidor.</a:Comment></o:UMLObject><o:UMLObject Id="o15"><a:ObjectID>F7D042BF-6281-40BC-8B62-FEC7F5894228</a:ObjectID><a:Name>PERSISTENCIA</a:Name><a:Code>PERSISTENCIA</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Participante conceptual de análisis. Acceso a datos solo desde la lógica autorizada del servidor.</a:Comment></o:UMLObject></c:Objects><c:Messages><o:Message Id="o19"><a:ObjectID>57987B4C-135C-413B-97B1-9AAC28AE9270</a:ObjectID><a:Name>Verificar sesión, permiso por
+operación y ámbito del registro</a:Name><a:Code>Verificar_sesion__permiso_por_operacion_y_ambito_del_registro</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Verificar sesión, permiso por operación y ámbito del registro</a:Comment><a:SequenceNumber>1</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2><a:Condition>sesión normal vigente y operación autorizada</a:Condition></o:Message><o:Message Id="o21"><a:ObjectID>9AB5433B-67AC-473B-B69C-4E8D0F82C808</a:ObjectID><a:Name>EXG-01/02: denegar sin revelar
+datos; terminar solicitud</a:Name><a:Code>EXG_01_02__denegar_sin_revelar_datos__terminar_solicitud</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>EXG-01/02: denegar sin revelar datos; terminar solicitud</a:Comment><a:SequenceNumber>2</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o26"><a:ObjectID>8367CB37-D17C-41DC-934F-67E1519F8BFF</a:ObjectID><a:Name>FP.1 Actor: Admisión: busca
+por documento, identificador
+interno o datos demográficos.</a:Name><a:Code>FP_1_Actor__Admision__busca_por_documento__identificador_interno_o_datos_demograficos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Admisión: busca por documento, identificador interno o datos demográficos.</a:Comment><a:SequenceNumber>3</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o28"><a:ObjectID>3114EE23-BE52-4134-A63A-46C37EBB5173</a:ObjectID><a:Name>FP.1 Solicitud autorizada: Buscar y
+registrar paciente</a:Name><a:Code>FP_1_Solicitud_autorizada__Buscar_y_registrar_paciente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Admisión: busca por documento, identificador interno o datos demográficos.
+Devuelve coincidencias autorizadas y permite seleccionar el registro existente.</a:Comment><a:SequenceNumber>4</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o30"><a:ObjectID>6D511EC5-A828-465A-A582-4CBB0CAA0A23</a:ObjectID><a:Name>FP.1 SIGH: Devuelve coincidencias
+autorizadas y permite seleccionar el
+registro existente.</a:Name><a:Code>FP_1_SIGH__Devuelve_coincidencias_autorizadas_y_permite_seleccionar_el_registro_existente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Devuelve coincidencias autorizadas y permite seleccionar el registro existente.</a:Comment><a:SequenceNumber>5</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o32"><a:ObjectID>403940D7-9407-4702-A9F6-8A6B6F8282A9</a:ObjectID><a:Name>FP.1 Presentar respuesta de
+la operación</a:Name><a:Code>FP_1_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Devuelve coincidencias autorizadas y permite seleccionar el registro existente.</a:Comment><a:SequenceNumber>6</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o34"><a:ObjectID>E30054D9-EDBF-44CA-9EDD-4688F05AE600</a:ObjectID><a:Name>FP.2 Actor: Si no existe un
+registro correcto, solicita
+Nuevo paciente e ingresa
+datos disponibles.</a:Name><a:Code>FP_2_Actor__Si_no_existe_un_registro_correcto__solicita_Nuevo_paciente_e_ingresa_datos_disponibles</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Si no existe un registro correcto, solicita Nuevo paciente e ingresa datos disponibles.</a:Comment><a:SequenceNumber>7</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o36"><a:ObjectID>8B0BC2B1-B65F-4308-9B0E-EF473CACD837</a:ObjectID><a:Name>FP.2 Solicitud autorizada: Buscar y
+registrar paciente</a:Name><a:Code>FP_2_Solicitud_autorizada__Buscar_y_registrar_paciente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Si no existe un registro correcto, solicita Nuevo paciente e ingresa datos disponibles.
+Valida los mínimos de identidad definitiva de RD-001 y comprueba documento y coincidencias demográficas.</a:Comment><a:SequenceNumber>8</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o38"><a:ObjectID>39E31B52-734C-4C2F-9F1C-7A931728F764</a:ObjectID><a:Name>FA-01: No permite crear o actualizar
+con ese documento; muestra la
+coincidencia autorizada para
+revisión. Regresa a FP.1 o FO-01.1.</a:Name><a:Code>FA_01__No_permite_crear_o_actualizar_con_ese_documento__muestra_la_coincidencia_autorizada_para_revision__Regresa_a_FP_1_o_FO_01_1</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.
+No permite crear o actualizar con ese documento; muestra la coincidencia autorizada para revisión. Regresa a FP.1 o FO-01.1.</a:Comment><a:SequenceNumber>9</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o40"><a:ObjectID>56931E66-F1E5-4F0A-A66A-9BF28C43AEA7</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.
+No permite crear o actualizar con ese documento; muestra la coincidencia autorizada para revisión. Regresa a FP.1 o FO-01.1.</a:Comment><a:SequenceNumber>10</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o44"><a:ObjectID>10117E4C-C6AF-4E73-8A54-ECC8E8A5F450</a:ObjectID><a:Name>FA-03: No exige completar identidad
+definitiva para atender; usa la
+identificación provisional descrita
+en CU-009. Continúa en CU-009;
+conciliación posterior mediante
+FO-02.</a:Name><a:Code>FA_03__No_exige_completar_identidad_definitiva_para_atender__usa_la_identificacion_provisional_descrita_en_CU_009__Continua_en_CU_009__conciliacion_posterior_mediante_FO_02</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-03 en FP.2 Paciente urgente sin datos administrativos completos.
+No exige completar identidad definitiva para atender; usa la identificación provisional descrita en CU-009. Continúa en CU-009; conciliación posterior mediante FO-02.</a:Comment><a:SequenceNumber>11</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o46"><a:ObjectID>ABC6EE2B-B668-4A9D-BB03-F70B6BBDC166</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-03 en FP.2 Paciente urgente sin datos administrativos completos.
+No exige completar identidad definitiva para atender; usa la identificación provisional descrita en CU-009. Continúa en CU-009; conciliación posterior mediante FO-02.</a:Comment><a:SequenceNumber>12</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o50"><a:ObjectID>12F0D977-16E9-4CFA-AAC0-E906F141412C</a:ObjectID><a:Name>FP.2 Consultar datos autorizados /
+estado vigente</a:Name><a:Code>FP_2_Consultar_datos_autorizados___estado_vigente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Valida los mínimos de identidad definitiva de RD-001 y comprueba documento y coincidencias demográficas.</a:Comment><a:SequenceNumber>13</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o15"/></c:Object2></o:Message><o:Message Id="o52"><a:ObjectID>0C3525E6-7F92-4669-A3F5-7D7EF16BC216</a:ObjectID><a:Name>Datos del ámbito autorizado</a:Name><a:Code>Datos_del_ambito_autorizado</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Valida los mínimos de identidad definitiva de RD-001 y comprueba documento y coincidencias demográficas.</a:Comment><a:SequenceNumber>14</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o15"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o54"><a:ObjectID>207AC68C-D70A-4E43-B7B4-1E0E01E21372</a:ObjectID><a:Name>FP.2 SIGH: Valida los mínimos de
+identidad definitiva de RD-001 y
+comprueba documento y coincidencias
+demográficas.</a:Name><a:Code>FP_2_SIGH__Valida_los_minimos_de_identidad_definitiva_de_RD_001_y_comprueba_documento_y_coincidencias_demograficas</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Valida los mínimos de identidad definitiva de RD-001 y comprueba documento y coincidencias demográficas.</a:Comment><a:SequenceNumber>15</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o56"><a:ObjectID>754762EF-BAC5-4D55-9171-D8D97D2606F4</a:ObjectID><a:Name>FP.2 Presentar respuesta de
+la operación</a:Name><a:Code>FP_2_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Valida los mínimos de identidad definitiva de RD-001 y comprueba documento y coincidencias demográficas.</a:Comment><a:SequenceNumber>16</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o63"><a:ObjectID>62822B0C-5289-41F8-8B97-53BCD659AD58</a:ObjectID><a:Name>FP.3 Actor: Verifica las
+coincidencias y confirma el
+alta de una persona distinta
+cuando corresponda.</a:Name><a:Code>FP_3_Actor__Verifica_las_coincidencias_y_confirma_el_alta_de_una_persona_distinta_cuando_corresponda</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Verifica las coincidencias y confirma el alta de una persona distinta cuando corresponda.</a:Comment><a:SequenceNumber>17</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o65"><a:ObjectID>123E8194-FAE5-42A3-960D-676D014A6E97</a:ObjectID><a:Name>FP.3 Solicitud autorizada: Buscar y
+registrar paciente</a:Name><a:Code>FP_3_Solicitud_autorizada__Buscar_y_registrar_paciente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Verifica las coincidencias y confirma el alta de una persona distinta cuando corresponda.
+Bloquea documento repetido; para coincidencia demográfica permite usar existente o justificar diferencia.</a:Comment><a:SequenceNumber>18</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o67"><a:ObjectID>6E59E9B7-CAB6-4E6E-88D9-C8A95479D16D</a:ObjectID><a:Name>FA-02: Permite usar el existente o
+justificar que es otra persona;
+conserva la decisión. Continúa en
+FP.4 solo si no hay documento
+duplicado.</a:Name><a:Code>FA_02__Permite_usar_el_existente_o_justificar_que_es_otra_persona__conserva_la_decision__Continua_en_FP_4_solo_si_no_hay_documento_duplicado</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-02 en FP.3 Coincidencia aproximada de nombres y fecha de nacimiento.
+Permite usar el existente o justificar que es otra persona; conserva la decisión. Continúa en FP.4 solo si no hay documento duplicado.</a:Comment><a:SequenceNumber>19</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o69"><a:ObjectID>41037E6A-2627-4A2B-990A-AC55483EDCBC</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-02 en FP.3 Coincidencia aproximada de nombres y fecha de nacimiento.
+Permite usar el existente o justificar que es otra persona; conserva la decisión. Continúa en FP.4 solo si no hay documento duplicado.</a:Comment><a:SequenceNumber>20</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o71"><a:ObjectID>662B19FF-DD59-444A-ADA1-89C22CBAD7F5</a:ObjectID><a:Name>FP.3 SIGH: Bloquea documento
+repetido; para coincidencia
+demográfica permite usar existente o
+justificar diferencia.</a:Name><a:Code>FP_3_SIGH__Bloquea_documento_repetido__para_coincidencia_demografica_permite_usar_existente_o_justificar_diferencia</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Bloquea documento repetido; para coincidencia demográfica permite usar existente o justificar diferencia.</a:Comment><a:SequenceNumber>21</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o73"><a:ObjectID>C689F0EA-2E23-4A82-ADE4-C01A0F50E9A1</a:ObjectID><a:Name>FP.3 Presentar respuesta de
+la operación</a:Name><a:Code>FP_3_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Bloquea documento repetido; para coincidencia demográfica permite usar existente o justificar diferencia.</a:Comment><a:SequenceNumber>22</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o79"><a:ObjectID>2B852CCB-BC5E-4FE2-82A0-D436A2223FCF</a:ObjectID><a:Name>FP.4 Actor: Confirma el
+registro válido.</a:Name><a:Code>FP_4_Actor__Confirma_el_registro_valido</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Confirma el registro válido.</a:Comment><a:SequenceNumber>23</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o81"><a:ObjectID>85785EC4-4AF9-4001-9CCD-EE7438357317</a:ObjectID><a:Name>FP.4 Solicitud autorizada: Buscar y
+registrar paciente</a:Name><a:Code>FP_4_Solicitud_autorizada__Buscar_y_registrar_paciente</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Confirma el registro válido.
+Asigna identificador interno único, crea la referencia de historia y audita la operación.</a:Comment><a:SequenceNumber>24</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o83"><a:ObjectID>807C3EBD-C382-434C-AC2E-D5B76F4ABE2A</a:ObjectID><a:Name>FP.4 Persistir cambios y auditoría
+requeridos</a:Name><a:Code>FP_4_Persistir_cambios_y_auditoria_requeridos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Asigna identificador interno único, crea la referencia de historia y audita la operación.
+Operación atómica cuando corresponda; no confirmar sin auditoría obligatoria; reintentos idempotentes.</a:Comment><a:SequenceNumber>25</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o15"/></c:Object2></o:Message><o:Message Id="o85"><a:ObjectID>1F2F89CC-6561-4A52-A513-F297002F3F39</a:ObjectID><a:Name>Resultado confirmado o fallo sin
+cambios parciales</a:Name><a:Code>Resultado_confirmado_o_fallo_sin_cambios_parciales</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Asigna identificador interno único, crea la referencia de historia y audita la operación.</a:Comment><a:SequenceNumber>26</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o15"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o87"><a:ObjectID>FC5059DA-84DD-432D-B456-437AE820086A</a:ObjectID><a:Name>FP.4 SIGH: Asigna identificador
+interno único, crea la referencia de
+historia y audita la operación.</a:Name><a:Code>FP_4_SIGH__Asigna_identificador_interno_unico__crea_la_referencia_de_historia_y_audita_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FP
+Asigna identificador interno único, crea la referencia de historia y audita la operación.</a:Comment><a:SequenceNumber>27</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o89"><a:ObjectID>02F4FD20-AFEB-4649-A44E-EC97B28EF88D</a:ObjectID><a:Name>FP.4 Presentar respuesta de
+la operación</a:Name><a:Code>FP_4_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Asigna identificador interno único, crea la referencia de historia y audita la operación.</a:Comment><a:SequenceNumber>28</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o92"><a:ObjectID>F7B3B8CE-B783-445B-BA3D-78F9AE8485FD</a:ObjectID><a:Name>FO-01.1 Actor: Admisión:
+selecciona un paciente y abre
+Editar.</a:Name><a:Code>FO_01_1_Actor__Admision__selecciona_un_paciente_y_abre_Editar</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-01
+Admisión: selecciona un paciente y abre Editar.</a:Comment><a:SequenceNumber>29</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o94"><a:ObjectID>E5E5F106-F080-404A-84DC-BA67CD44305F</a:ObjectID><a:Name>FO-01.1 Solicitud autorizada:
+Actualizar datos administrativos</a:Name><a:Code>FO_01_1_Solicitud_autorizada__Actualizar_datos_administrativos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Admisión: selecciona un paciente y abre Editar.
+Presenta datos actuales autorizados sin habilitar edición de notas clínicas.</a:Comment><a:SequenceNumber>30</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o96"><a:ObjectID>932F34A5-6C64-44B7-B99B-DFF5C72C6472</a:ObjectID><a:Name>FO-01.1 SIGH: Presenta datos
+actuales autorizados sin habilitar
+edición de notas clínicas.</a:Name><a:Code>FO_01_1_SIGH__Presenta_datos_actuales_autorizados_sin_habilitar_edicion_de_notas_clinicas</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-01
+Presenta datos actuales autorizados sin habilitar edición de notas clínicas.</a:Comment><a:SequenceNumber>31</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o98"><a:ObjectID>4A9A1785-C87F-40BE-817C-69F616262E6C</a:ObjectID><a:Name>FO-01.1 Presentar respuesta
+de la operación</a:Name><a:Code>FO_01_1_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Presenta datos actuales autorizados sin habilitar edición de notas clínicas.</a:Comment><a:SequenceNumber>32</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o100"><a:ObjectID>8C74CB09-2CE8-4A75-97C0-10C5C9E6828E</a:ObjectID><a:Name>FO-01.2 Actor: Actualiza
+datos y confirma.</a:Name><a:Code>FO_01_2_Actor__Actualiza_datos_y_confirma</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-01
+Actualiza datos y confirma.</a:Comment><a:SequenceNumber>33</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o102"><a:ObjectID>5FAFF215-DFDD-42F4-A584-0C6F233E222B</a:ObjectID><a:Name>FO-01.2 Solicitud autorizada:
+Actualizar datos administrativos</a:Name><a:Code>FO_01_2_Solicitud_autorizada__Actualizar_datos_administrativos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Actualiza datos y confirma.
+Revalida documento y datos obligatorios; guarda usuario, fecha y valores anteriores.</a:Comment><a:SequenceNumber>34</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o104"><a:ObjectID>C3AA67F2-06CC-4E03-AFEF-988407F2CD66</a:ObjectID><a:Name>FA-01: No permite crear o actualizar
+con ese documento; muestra la
+coincidencia autorizada para
+revisión. Regresa a FP.1 o FO-01.1.</a:Name><a:Code>FA_01__No_permite_crear_o_actualizar_con_ese_documento__muestra_la_coincidencia_autorizada_para_revision__Regresa_a_FP_1_o_FO_01_1</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.
+No permite crear o actualizar con ese documento; muestra la coincidencia autorizada para revisión. Regresa a FP.1 o FO-01.1.</a:Comment><a:SequenceNumber>35</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o106"><a:ObjectID>B6E92121-26AE-49B5-8435-9F610DF959BA</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.
+No permite crear o actualizar con ese documento; muestra la coincidencia autorizada para revisión. Regresa a FP.1 o FO-01.1.</a:Comment><a:SequenceNumber>36</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o110"><a:ObjectID>E8574EED-B917-4C8A-919D-43185D4E64EF</a:ObjectID><a:Name>FO-01.2 Persistir cambios y
+auditoría requeridos</a:Name><a:Code>FO_01_2_Persistir_cambios_y_auditoria_requeridos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Revalida documento y datos obligatorios; guarda usuario, fecha y valores anteriores.
+Operación atómica cuando corresponda; no confirmar sin auditoría obligatoria; reintentos idempotentes.</a:Comment><a:SequenceNumber>37</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o15"/></c:Object2></o:Message><o:Message Id="o112"><a:ObjectID>0E66417D-3EF9-4E8C-9852-5405538F716A</a:ObjectID><a:Name>Resultado confirmado o fallo sin
+cambios parciales</a:Name><a:Code>Resultado_confirmado_o_fallo_sin_cambios_parciales</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Revalida documento y datos obligatorios; guarda usuario, fecha y valores anteriores.</a:Comment><a:SequenceNumber>38</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o15"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o114"><a:ObjectID>F3E8D3F0-0560-4412-84D6-1724A2190593</a:ObjectID><a:Name>FO-01.2 SIGH: Revalida documento y
+datos obligatorios; guarda usuario,
+fecha y valores anteriores.</a:Name><a:Code>FO_01_2_SIGH__Revalida_documento_y_datos_obligatorios__guarda_usuario__fecha_y_valores_anteriores</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-01
+Revalida documento y datos obligatorios; guarda usuario, fecha y valores anteriores.</a:Comment><a:SequenceNumber>39</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o116"><a:ObjectID>15497D44-8010-4C89-8052-55914D5E0B51</a:ObjectID><a:Name>FO-01.2 Presentar respuesta
+de la operación</a:Name><a:Code>FO_01_2_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Revalida documento y datos obligatorios; guarda usuario, fecha y valores anteriores.</a:Comment><a:SequenceNumber>40</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o123"><a:ObjectID>8EEE4DDB-9448-468B-8F82-C3E13ECA5EA4</a:ObjectID><a:Name>FO-02.1 Actor: Admisión con
+permiso adicional: abre el
+registro provisional y busca
+su identidad definitiva.</a:Name><a:Code>FO_02_1_Actor__Admision_con_permiso_adicional__abre_el_registro_provisional_y_busca_su_identidad_definitiva</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+Admisión con permiso adicional: abre el registro provisional y busca su identidad definitiva.</a:Comment><a:SequenceNumber>41</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o125"><a:ObjectID>66E33315-D368-4087-8CC2-896371DDD7DB</a:ObjectID><a:Name>FO-02.1 Solicitud autorizada:
+Conciliar identidad provisional</a:Name><a:Code>FO_02_1_Solicitud_autorizada__Conciliar_identidad_provisional</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Admisión con permiso adicional: abre el registro provisional y busca su identidad definitiva.
+Muestra coincidencias y los episodios y referencias vinculados para revisión autorizada.</a:Comment><a:SequenceNumber>42</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o127"><a:ObjectID>A684EAA8-D69E-4910-BFC7-36BD02EB9381</a:ObjectID><a:Name>FO-02.1 SIGH: Muestra coincidencias
+y los episodios y referencias
+vinculados para revisión autorizada.</a:Name><a:Code>FO_02_1_SIGH__Muestra_coincidencias_y_los_episodios_y_referencias_vinculados_para_revision_autorizada</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+Muestra coincidencias y los episodios y referencias vinculados para revisión autorizada.</a:Comment><a:SequenceNumber>43</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o129"><a:ObjectID>52117A4F-4167-4F43-A4DC-4BCA7DE460CF</a:ObjectID><a:Name>FO-02.1 Presentar respuesta
+de la operación</a:Name><a:Code>FO_02_1_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Muestra coincidencias y los episodios y referencias vinculados para revisión autorizada.</a:Comment><a:SequenceNumber>44</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o131"><a:ObjectID>3931E30F-4197-495F-A347-D290B02005EC</a:ObjectID><a:Name>FO-02.2 Actor: Verifica
+evidencia; elige completar
+identidad o enlazar con
+paciente existente e ingresa
+motivo.</a:Name><a:Code>FO_02_2_Actor__Verifica_evidencia__elige_completar_identidad_o_enlazar_con_paciente_existente_e_ingresa_motivo</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+Verifica evidencia; elige completar identidad o enlazar con paciente existente e ingresa motivo.</a:Comment><a:SequenceNumber>45</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o133"><a:ObjectID>CF13E84C-3444-473A-8ECE-F9AEA4A49E8B</a:ObjectID><a:Name>FO-02.2 Solicitud autorizada:
+Conciliar identidad provisional</a:Name><a:Code>FO_02_2_Solicitud_autorizada__Conciliar_identidad_provisional</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Verifica evidencia; elige completar identidad o enlazar con paciente existente e ingresa motivo.
+Exige autorización y compatibilidad; presenta el efecto del enlace sin fusionar automáticamente coincidencias ambiguas.</a:Comment><a:SequenceNumber>46</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o135"><a:ObjectID>FC6ECAFF-04C3-486A-9C2A-07C55DF309CB</a:ObjectID><a:Name>FA-04: No enlaza ni fusiona
+registros; mantiene ambos con sus
+episodios intactos. Termina la
+conciliación sin cambios.</a:Name><a:Code>FA_04__No_enlaza_ni_fusiona_registros__mantiene_ambos_con_sus_episodios_intactos__Termina_la_conciliacion_sin_cambios</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-04 en FO-02.2 Evidencia ambigua o autorización insuficiente.
+No enlaza ni fusiona registros; mantiene ambos con sus episodios intactos. Termina la conciliación sin cambios.</a:Comment><a:SequenceNumber>47</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o137"><a:ObjectID>8D463612-B1EC-4866-879B-B408FB1747BF</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-04 en FO-02.2 Evidencia ambigua o autorización insuficiente.
+No enlaza ni fusiona registros; mantiene ambos con sus episodios intactos. Termina la conciliación sin cambios.</a:Comment><a:SequenceNumber>48</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o141"><a:ObjectID>1F798CBC-1456-41A2-8410-D1EF47006769</a:ObjectID><a:Name>FO-02.2 SIGH: Exige autorización y
+compatibilidad; presenta el efecto
+del enlace sin fusionar
+automáticamente coincidencias
+ambiguas.</a:Name><a:Code>FO_02_2_SIGH__Exige_autorizacion_y_compatibilidad__presenta_el_efecto_del_enlace_sin_fusionar_automaticamente_coincidencias_ambiguas</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+Exige autorización y compatibilidad; presenta el efecto del enlace sin fusionar automáticamente coincidencias ambiguas.</a:Comment><a:SequenceNumber>49</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o143"><a:ObjectID>62FB0BDB-8BCE-44B2-8278-B193DDC14FA8</a:ObjectID><a:Name>FO-02.2 Presentar respuesta
+de la operación</a:Name><a:Code>FO_02_2_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Exige autorización y compatibilidad; presenta el efecto del enlace sin fusionar automáticamente coincidencias ambiguas.</a:Comment><a:SequenceNumber>50</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o149"><a:ObjectID>389D34A8-6267-4A7D-9D36-8F3147A4470F</a:ObjectID><a:Name>FO-02.3 Actor: Confirma la
+conciliación verificada.</a:Name><a:Code>FO_02_3_Actor__Confirma_la_conciliacion_verificada</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+Confirma la conciliación verificada.</a:Comment><a:SequenceNumber>51</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:Actor Ref="o6"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o151"><a:ObjectID>354B9289-2F24-4124-926C-C1F83C8BDB01</a:ObjectID><a:Name>FO-02.3 Solicitud autorizada:
+Conciliar identidad provisional</a:Name><a:Code>FO_02_3_Solicitud_autorizada__Conciliar_identidad_provisional</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>Confirma la conciliación verificada.
+En una transacción conserva episodios, órdenes, resultados, dispensaciones, identificadores anteriores y autoría; registra el enlace y su evidencia.</a:Comment><a:SequenceNumber>52</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o153"><a:ObjectID>0BE832AA-F6D2-4848-ABD5-A4F8C4FCBBDC</a:ObjectID><a:Name>FA-05: Revierte el enlace completo;
+un reintento comprueba el estado
+antes de ejecutarlo. Regresa a
+FO-02.1 sin pérdida ni duplicación
+de episodios.</a:Name><a:Code>FA_05__Revierte_el_enlace_completo__un_reintento_comprueba_el_estado_antes_de_ejecutarlo__Regresa_a_FO_02_1_sin_perdida_ni_duplicacion_de_episodios</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-05 en FO-02.3 Fallo de transacción o concurrencia.
+Revierte el enlace completo; un reintento comprueba el estado antes de ejecutarlo. Regresa a FO-02.1 sin pérdida ni duplicación de episodios.</a:Comment><a:SequenceNumber>53</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o155"><a:ObjectID>D6FC156E-A73E-4464-9A52-2EE066D29855</a:ObjectID><a:Name>Informar alternativa y
+retorno indicado en ECUD</a:Name><a:Code>Informar_alternativa_y_retorno_indicado_en_ECUD</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>FA-05 en FO-02.3 Fallo de transacción o concurrencia.
+Revierte el enlace completo; un reintento comprueba el estado antes de ejecutarlo. Regresa a FO-02.1 sin pérdida ni duplicación de episodios.</a:Comment><a:SequenceNumber>54</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o159"><a:ObjectID>01144428-E73A-4F76-892D-CFC2F18C3C0C</a:ObjectID><a:Name>FO-02.3 Persistir cambios y
+auditoría requeridos</a:Name><a:Code>FO_02_3_Persistir_cambios_y_auditoria_requeridos</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>En una transacción conserva episodios, órdenes, resultados, dispensaciones, identificadores anteriores y autoría; registra el enlace y su evidencia.
+Operación atómica cuando corresponda; no confirmar sin auditoría obligatoria; reintentos idempotentes.</a:Comment><a:SequenceNumber>55</a:SequenceNumber><a:ControlFlow>C</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o15"/></c:Object2></o:Message><o:Message Id="o161"><a:ObjectID>6038E99F-E13D-4CD0-8A67-6CC793421748</a:ObjectID><a:Name>Resultado confirmado o fallo sin
+cambios parciales</a:Name><a:Code>Resultado_confirmado_o_fallo_sin_cambios_parciales</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>En una transacción conserva episodios, órdenes, resultados, dispensaciones, identificadores anteriores y autoría; registra el enlace y su evidencia.</a:Comment><a:SequenceNumber>56</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o15"/></c:Object1><c:Object2><o:UMLObject Ref="o12"/></c:Object2></o:Message><o:Message Id="o163"><a:ObjectID>1132EDBA-C68B-47AA-BCA1-0BBF6B123C59</a:ObjectID><a:Name>FO-02.3 SIGH: En una transacción
+conserva episodios, órdenes,
+resultados, dispensaciones,
+identificadores anteriores y
+autoría; registra el enlace y su
+evidencia.</a:Name><a:Code>FO_02_3_SIGH__En_una_transaccion_conserva_episodios__ordenes__resultados__dispensaciones__identificadores_anteriores_y_autoria__registra_el_enlace_y_su_evidencia</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>CU-006_FO-02
+En una transacción conserva episodios, órdenes, resultados, dispensaciones, identificadores anteriores y autoría; registra el enlace y su evidencia.</a:Comment><a:SequenceNumber>57</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message><o:Message Id="o165"><a:ObjectID>6612DB50-14A0-4805-98DA-F7405521348D</a:ObjectID><a:Name>FO-02.3 Presentar respuesta
+de la operación</a:Name><a:Code>FO_02_3_Presentar_respuesta_de_la_operacion</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>En una transacción conserva episodios, órdenes, resultados, dispensaciones, identificadores anteriores y autoría; registra el enlace y su evidencia.</a:Comment><a:SequenceNumber>58</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o9"/></c:Object1><c:Object2><o:Actor Ref="o6"/></c:Object2></o:Message><o:Message Id="o176"><a:ObjectID>F4E6515A-19CA-4BCD-940B-7516E27A288A</a:ObjectID><a:Name>EXG-03 a EXG-06: conservar datos
+válidos, no duplicar, no confirmar
+sin auditoría; cancelar solo
+pendientes</a:Name><a:Code>EXG_03_a_EXG_06__conservar_datos_validos__no_duplicar__no_confirmar_sin_auditoria__cancelar_solo_pendientes</a:Code><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:Comment>EXG-03 | Datos inválidos o relaciones incompatibles | Identifica los campos o la relación que debe corregirse, conserva los datos válidos del formulario y no confirma la actuación inválida. Un dato desconocido no se sustituye por cero, una fecha ficticia o ausencia clínica verificada.
+EXG-04 | Fallo técnico o de auditoría obligatoria | Muestra mensaje comprensible e identificador de incidencia, sin SQL, trazas ni secretos. No confirma una escritura sin su auditoría requerida ni estados parciales. Comprueba el resultado previo antes de reintentar. En atención urgente se activa el procedimiento humano de contingencia DEP-006, sin simular un registro exitoso.
+EXG-05 | Cancelación anterior a la confirmación | Descarta únicamente los cambios no confirmados de la operación. Conserva borradores ya guardados, movimientos confirmados y evidencia histórica. Cancelar un formulario no equivale a anular una prescripción, nota, cargo o reserva previamente confirmada.
+EXG-06 | Concurrencia o repetición de solicitud | Revalida estado y disponibilidad al confirmar. Las operaciones transaccionales de RNF-013 se ejecutan de forma atómica; un reintento reconoce el resultado ya confirmado. Si hay conflicto, rechaza sin duplicar, conserva el estado válido previo y permite recargar la información.</a:Comment><a:SequenceNumber>59</a:SequenceNumber><a:ControlFlow>R</a:ControlFlow><c:Object1><o:UMLObject Ref="o12"/></c:Object1><c:Object2><o:UMLObject Ref="o9"/></c:Object2></o:Message></c:Messages><c:InteractionFragments><o:InteractionFragment Id="o23"><a:ObjectID>BC6FAD9C-482A-483C-8718-E09FB1B7700D</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>7000</a:Size><a:InteractionFragment.Condition>[sesión inválida o permiso insuficiente]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o42"><a:ObjectID>98303933-A161-497F-9595-3506E45C6749</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>17800</a:Size><a:InteractionFragment.Condition>[FA-01: terminar este intento; retorno o nuevo caso según ECUD]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o48"><a:ObjectID>A3C2CD7B-EF98-4AF8-9CB7-038172BE3546</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>20000</a:Size><a:InteractionFragment.Condition>[FA-03: terminar este intento; retorno o nuevo caso según ECUD]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o58"><a:ObjectID>58181138-B394-4DCE-A05E-AD2124D4B113</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>77000</a:Size><c:Regions><o:InteractionFragment Id="o60"><a:ObjectID>2C687407-1150-4871-8A7D-6C4CE1A35B84</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>22300</a:Size><a:InteractionFragment.Condition>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o61"><a:ObjectID>4E92B9B3-F445-4EDB-8E21-C0B4FF7CF120</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>24500</a:Size><a:InteractionFragment.Condition>FA-03 en FP.2 Paciente urgente sin datos administrativos completos.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o62"><a:ObjectID>996DA95A-615D-4190-827B-7721A627CF12</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>29300</a:Size><a:InteractionFragment.Condition>[else: ninguna alternativa aplicable]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o75"><a:ObjectID>6EE9185E-3036-4C8A-9F23-BC3E3700F9E9</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>37600</a:Size><c:Regions><o:InteractionFragment Id="o77"><a:ObjectID>019D11D3-BF27-4575-BB00-B155BC36C48E</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>18900</a:Size><a:InteractionFragment.Condition>FA-02 en FP.3 Coincidencia aproximada de nombres y fecha de nacimiento.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o78"><a:ObjectID>F3E0669B-1D17-40C4-B924-F1CF7BF3CD07</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>17800</a:Size><a:InteractionFragment.Condition>[else: ninguna alternativa aplicable]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o108"><a:ObjectID>106B6D07-1D68-4FD1-A155-30710A428DF9</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>17800</a:Size><a:InteractionFragment.Condition>[FA-01: terminar este intento; retorno o nuevo caso según ECUD]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o118"><a:ObjectID>22ED9514-1B37-4A83-8543-43C01997A485</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>52500</a:Size><c:Regions><o:InteractionFragment Id="o120"><a:ObjectID>469E0D8D-ACE1-4FF0-BDEA-E7E93BB913C1</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>22300</a:Size><a:InteractionFragment.Condition>FA-01 en FP.2 / FO-01.2 Tipo y número de documento ya registrados.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o121"><a:ObjectID>804768C4-79FF-4EAD-AEFD-08CA04B0789E</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>29300</a:Size><a:InteractionFragment.Condition>[else: ninguna alternativa aplicable]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o139"><a:ObjectID>D5DA7D9B-73AC-4229-9C37-C40C81C17F04</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>17800</a:Size><a:InteractionFragment.Condition>[FA-04: terminar este intento; retorno o nuevo caso según ECUD]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o145"><a:ObjectID>AB820281-DBF6-468C-B87A-EE64F39E4888</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>42100</a:Size><c:Regions><o:InteractionFragment Id="o147"><a:ObjectID>8582F955-3D7A-4C62-B151-ADD76EAAC4FB</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>22300</a:Size><a:InteractionFragment.Condition>FA-04 en FO-02.2 Evidencia ambigua o autorización insuficiente.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o148"><a:ObjectID>F3AB38A5-6E33-4A43-8800-887BEE5440D9</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>18900</a:Size><a:InteractionFragment.Condition>[else: ninguna alternativa aplicable]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o157"><a:ObjectID>34DC4564-F656-45ED-8C1C-594803648AAC</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>18900</a:Size><a:InteractionFragment.Condition>[FA-05: terminar este intento; retorno o nuevo caso según ECUD]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o167"><a:ObjectID>AD3AF8E9-FCC8-4144-90C6-2D6EA6AD4161</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>56900</a:Size><c:Regions><o:InteractionFragment Id="o169"><a:ObjectID>AF0E80AA-0543-4B4D-928E-5327ED9A0374</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>23400</a:Size><a:InteractionFragment.Condition>FA-05 en FO-02.3 Fallo de transacción o concurrencia.</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o170"><a:ObjectID>F589DD88-ACFD-43D5-AD1C-4ECBCF4D5DAA</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>32600</a:Size><a:InteractionFragment.Condition>[else: ninguna alternativa aplicable]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o171"><a:ObjectID>2F2D1E01-9A55-4CE0-904A-FD118ADC5636</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>alt</a:FragmentType><a:Size>492400</a:Size><c:Regions><o:InteractionFragment Id="o173"><a:ObjectID>DE18D841-D6C5-4231-94F1-49663D105CC6</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>221800</a:Size><a:InteractionFragment.Condition>[FP seleccionado; cumple precondiciones y permisos]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o174"><a:ObjectID>021A4531-80CE-4E45-9ED6-86741791726A</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>103300</a:Size><a:InteractionFragment.Condition>[FO-01 seleccionado; cumple precondiciones y permisos]</a:InteractionFragment.Condition></o:InteractionFragment><o:InteractionFragment Id="o175"><a:ObjectID>FA2036C9-99F7-49D8-99B8-F0E76314C1B6</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>opt</a:FragmentType><a:Size>167300</a:Size><a:InteractionFragment.Condition>[FO-02 seleccionado; cumple precondiciones y permisos]</a:InteractionFragment.Condition></o:InteractionFragment></c:Regions></o:InteractionFragment><o:InteractionFragment Id="o178"><a:ObjectID>047EC9F6-3AD6-4379-B4D3-31699E68820B</a:ObjectID><a:CreationDate>1793733430</a:CreationDate><a:ModificationDate>1793733430</a:ModificationDate><a:Creator>SIGH_GR3</a:Creator><a:Modifier>SIGH_GR3</a:Modifier><a:FragmentType>break</a:FragmentType><a:Size>11200</a:Size><a:InteractionFragment.Condition>[excepción transversal en cualquier solicitud o confirmación]</a:InteractionFragment.Condition></o:InteractionFragment></c:InteractionFragments></o:Model>
+    </c:Children>
+  </o:RootObject>
+</Model>

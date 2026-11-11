@@ -1,0 +1,55 @@
+-- =====================================================================
+-- LOGIN_JAVA_MONSTER_GR03 - Ajustes de SIGH_GR3 para el inicio de sesion
+-- La aplicacion ejecuta estos mismos pasos al arrancar (DatosInicialesConfig).
+-- El script queda como respaldo para aplicarlo manualmente desde phpMyAdmin.
+-- =====================================================================
+USE SIGH_GR3;
+
+-- 1. Tabla para los enlaces de recuperacion de clave
+CREATE TABLE IF NOT EXISTS SETOK_RECUPE (
+    SETOK_CODIGO BIGINT NOT NULL AUTO_INCREMENT,
+    SETOK_TOKEN  VARCHAR(64) NOT NULL,
+    SETOK_FECCRE DATETIME NOT NULL,
+    SETOK_EXPIRA DATETIME NOT NULL,
+    SETOK_USADO  BIT(1) NOT NULL DEFAULT b'0',
+    SEUSU_CODIGO VARCHAR(6) NOT NULL,
+    PRIMARY KEY (SETOK_CODIGO),
+    UNIQUE KEY UK_SETOK_TOKEN (SETOK_TOKEN),
+    KEY IX_SETOK_USUARIO (SEUSU_CODIGO),
+    CONSTRAINT FK_SETOK_USUARIO FOREIGN KEY (SEUSU_CODIGO) REFERENCES SEUSU_USUARI (SEUSU_CODIGO)
+);
+
+-- 2. Clave inicial "Sigh2026" (SHA-256) para los usuarios sin un hash valido
+UPDATE SEUSU_USUARI
+SET SEUSU_HASHCL = SHA2('Sigh2026', 256),
+    SEUSU_INTFAL = 0,
+    SEUSU_BLOHAS = NULL,
+    SEUSU_FECMOD = NOW()
+WHERE SEUSU_HASHCL NOT REGEXP '^[0-9a-fA-F]{64}$';
+
+-- 3. Opcion DEP: mantenimiento de departamentos
+INSERT INTO SEOPC_OPCION (SEOPC_CODIGO, SEOPC_NOMBRE, SEOPC_MODULO, SEOPC_OPERAC, SEOPC_DESCRI, SEOPC_ACTIVO, SESIS_CODIGO, SEEST_CODIGO)
+SELECT 'DEP', 'Departamentos', 'Personal', 'Mantenimiento',
+       'Consulta, registro, edicion y eliminacion de departamentos', 1,
+       (SELECT MIN(SESIS_CODIGO) FROM SESIS_SISTEM WHERE SESIS_ACTIVO = 1), 'A'
+FROM DUAL
+WHERE NOT EXISTS (SELECT 1 FROM SEOPC_OPCION WHERE SEOPC_CODIGO = 'DEP');
+
+-- 4. Conceder DEP al perfil de la primera asignacion vigente (si nadie la tiene)
+INSERT INTO SEOXP_OPCPER (SEOXP_CODIGO, SEOXP_AMBITO, SEOXP_VIGENT, SEOXP_DESDE, SEOXP_HASTA, SEPER_CODIGO, SEOPC_CODIGO, SEUSU_CODIGO)
+SELECT 'OPL001', 'Mantenimiento de departamentos desde el login', 1, NOW(), NULL,
+       up.SEPER_CODIGO, 'DEP', up.SEUSU_CODIGO
+FROM SEUXP_USUPER up
+WHERE up.SEUXP_VIGENT = 1 AND up.SEUXP_HASTA IS NULL
+  AND NOT EXISTS (SELECT 1 FROM SEOXP_OPCPER WHERE SEOPC_CODIGO = 'DEP')
+  AND NOT EXISTS (SELECT 1 FROM SEOXP_OPCPER WHERE SEOXP_CODIGO = 'OPL001')
+ORDER BY up.SEUXP_CODIGO
+LIMIT 1;
+
+-- Consulta de verificacion
+SELECT u.SEUSU_USUARI, p.SEPER_NOMBRE, o.SEOPC_NOMBRE
+FROM SEUSU_USUARI u
+JOIN SEUXP_USUPER up ON up.SEUSU_CODIGO = u.SEUSU_CODIGO AND up.SEUXP_VIGENT = 1
+JOIN SEPER_PERFIL p ON p.SEPER_CODIGO = up.SEPER_CODIGO
+JOIN SEOXP_OPCPER op ON op.SEPER_CODIGO = p.SEPER_CODIGO AND op.SEOXP_VIGENT = 1
+JOIN SEOPC_OPCION o ON o.SEOPC_CODIGO = op.SEOPC_CODIGO;
