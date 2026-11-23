@@ -1,0 +1,14 @@
+## Link del repositorio en GitHub ##
+
+
+## Credenciales ##
+user: demo.sigh
+pass: Sigh2026
+
+user: luis.mora   // Usuario no admin
+pass: Sigh2026
+
+
+## Credenciales MariaDB ##
+user: root
+sin password
